@@ -1,0 +1,14 @@
+[theme]
+# Palette matched to the hero nautical chart: parchment paper, navy ink,
+# nautical-blue accent (compass rose / chart blues).
+primaryColor = "#1C5C8C"
+backgroundColor = "#F7F3EA"
+secondaryBackgroundColor = "#EAE0CD"
+textColor = "#15293F"
+font = "sans serif"
+
+[logger]
+# Suppress warning-level noise (e.g. the transformers/torchvision tracebacks
+# the dev file-watcher emits while probing optional image modules we don't use).
+# Hot-reload still works; only sub-error log lines are hidden.
+level = "error"

@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment
+.env
+*.env.local
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Databases / cache
+*.db
+*.sqlite
+*.sqlite3
+# Runtime cache-artifact dir only (anchored) — must NOT match the
+# src/data_compass/cache/ source package.
+/cache/
+
+# FAISS index files
+*.index
+*.faiss
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test artefacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Visual-QC screenshots (qc_screenshots.py output; the harness itself is tracked)
+qc_shots/

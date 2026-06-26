@@ -1,0 +1,19 @@
+station_id,name,latitude,longitude,elevation_m,country,region
+heathrow,Heathrow,51.479,-0.449,25,England,Greater London
+oxford,Oxford,51.761,-1.262,63,England,Oxfordshire
+cambridge,Cambridge,52.2,0.117,12,England,Cambridgeshire
+lowestoft,Lowestoft,52.476,1.731,25,England,Suffolk
+manston,Manston,51.347,1.341,50,England,Kent
+hurn,Hurn,50.779,-1.832,10,England,Dorset
+camborne,Camborne,50.218,-5.327,87,England,Cornwall
+chivenor,Chivenor,51.087,-4.15,8,England,Devon
+bradford,Bradford,53.81,-1.77,133,England,West Yorkshire
+durham,Durham,54.767,-1.583,69,England,County Durham
+valley,Valley,53.252,-4.534,10,Wales,Anglesey
+armagh,Armagh,54.352,-6.649,62,Northern Ireland,Armagh
+lerwick,Lerwick,60.139,-1.185,82,Scotland,Shetland
+tiree,Tiree,56.499,-6.879,9,Scotland,Argyll and Bute
+nairn,Nairn,57.593,-3.897,7,Scotland,Highland
+leuchars,Leuchars,56.377,-2.863,10,Scotland,Fife
+stornoway,Stornoway,58.213,-6.317,15,Scotland,Western Isles
+eastbourne,Eastbourne,50.757,0.273,40,England,East Sussex

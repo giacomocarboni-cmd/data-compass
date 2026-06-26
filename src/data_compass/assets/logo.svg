@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52">
+  <!-- Outer guide ring -->
+  <circle cx="26" cy="26" r="20" fill="none" stroke="#1B6CA8" stroke-width="1" opacity="0.45"/>
+  <!-- Intercardinal lines: brass, from r=8 to r=17 -->
+  <!-- NE -->
+  <line x1="32" y1="20" x2="38" y2="14" stroke="#D4920A" stroke-width="1.2" opacity="0.7"/>
+  <!-- SE -->
+  <line x1="32" y1="32" x2="38" y2="38" stroke="#D4920A" stroke-width="1.2" opacity="0.7"/>
+  <!-- SW -->
+  <line x1="20" y1="32" x2="14" y2="38" stroke="#D4920A" stroke-width="1.2" opacity="0.7"/>
+  <!-- NW -->
+  <line x1="20" y1="20" x2="14" y2="14" stroke="#D4920A" stroke-width="1.2" opacity="0.7"/>
+  <!-- Cardinal arrows: kite/dart shape (tip, left-shoulder, notch, right-shoulder) -->
+  <!-- N — dark midnight navy, primary bearing -->
+  <polygon points="26,6 22,22 26,17 30,22" fill="#1C2B3A"/>
+  <!-- S -->
+  <polygon points="26,46 22,30 26,35 30,30" fill="#1B6CA8" opacity="0.85"/>
+  <!-- E -->
+  <polygon points="46,26 30,22 35,26 30,30" fill="#1B6CA8" opacity="0.85"/>
+  <!-- W -->
+  <polygon points="6,26 22,22 17,26 22,30" fill="#1B6CA8" opacity="0.85"/>
+  <!-- Brass centre pin -->
+  <circle cx="26" cy="26" r="4" fill="#D4920A"/>
+  <circle cx="26" cy="26" r="2" fill="#E8EFF7"/>
+  <!-- Wordmark -->
+  <text x="58" y="20" font-family="'Segoe UI',Arial,sans-serif" font-size="12"
+        font-weight="300" letter-spacing="3" fill="#1C2B3A">DATA</text>
+  <text x="56" y="37" font-family="'Segoe UI',Arial,sans-serif" font-size="14"
+        font-weight="700" letter-spacing="1.5" fill="#1B6CA8">COMPASS</text>
+</svg>

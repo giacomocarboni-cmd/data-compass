@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 52">
+  <!-- Outer guide ring -->
+  <circle cx="25" cy="26" r="22" fill="none" stroke="#1B6CA8" stroke-width="1" opacity="0.45"/>
+  <!-- Intercardinal lines: brass, from r=9 to r=19 -->
+  <line x1="31" y1="20" x2="38" y2="13" stroke="#D4920A" stroke-width="1.3" opacity="0.7"/>
+  <line x1="31" y1="32" x2="38" y2="39" stroke="#D4920A" stroke-width="1.3" opacity="0.7"/>
+  <line x1="19" y1="32" x2="12" y2="39" stroke="#D4920A" stroke-width="1.3" opacity="0.7"/>
+  <line x1="19" y1="20" x2="12" y2="13" stroke="#D4920A" stroke-width="1.3" opacity="0.7"/>
+  <!-- Cardinal arrows -->
+  <!-- N — dark midnight navy -->
+  <polygon points="25,4 21,22 25,16 29,22" fill="#1C2B3A"/>
+  <!-- S -->
+  <polygon points="25,48 21,30 25,36 29,30" fill="#1B6CA8" opacity="0.85"/>
+  <!-- E -->
+  <polygon points="47,26 29,22 35,26 29,30" fill="#1B6CA8" opacity="0.85"/>
+  <!-- W -->
+  <polygon points="3,26 21,22 15,26 21,30" fill="#1B6CA8" opacity="0.85"/>
+  <!-- Brass centre pin -->
+  <circle cx="25" cy="26" r="4.5" fill="#D4920A"/>
+  <circle cx="25" cy="26" r="2.5" fill="#E8EFF7"/>
+</svg>
