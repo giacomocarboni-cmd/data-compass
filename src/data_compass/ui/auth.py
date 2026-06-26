@@ -83,6 +83,20 @@ def _render_admin_status(session) -> None:
         st.warning(
             t("auth.password_renewal_due").format(days=ADMIN_PASSWORD_MAX_AGE_DAYS)
         )
+
+    st.divider()
+    st.subheader(t("auth.admin_tokens_header"))
+
+    # Show newly created token once, then clear it
+    new_token = session.pop("_new_recruiter_token", None)
+    if new_token:
+        st.success(t("auth.admin_token_created"))
+        st.text_input(t("auth.admin_token_copy_label"), value=new_token, key="_token_display")
+
+    st.text_input(t("auth.admin_token_label_input"), key="_new_token_label")
+    st.button(t("auth.admin_create_token_button"), key="create_token_btn", on_click=_cb_create_token)
+
+    st.divider()
     st.button(t("auth.logout_button"), key="logout_btn", on_click=_cb_logout)
 
 
@@ -175,6 +189,17 @@ def _cb_admin_login() -> None:
     key_router.login_admin(session, user.username)
     session["_admin_renewal_due"] = policy.must_change_password(user)
     session[_SUCCESS_FLAG] = t("auth.login_success_admin")
+
+
+def _cb_create_token() -> None:
+    session = st.session_state
+    label = (session.get("_new_token_label") or "").strip()
+    if not label:
+        session[_ERROR_FLAG] = t("auth.admin_token_label_empty")
+        return
+    conn = auth_resource.get_auth_conn()
+    plaintext = recruiter.create_recruiter_token(conn, label)
+    session["_new_recruiter_token"] = plaintext
 
 
 def _cb_logout() -> None:

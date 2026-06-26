@@ -81,7 +81,13 @@
     "token_expired": "That access token has expired.",
     "token_quota": "That access token has reached its query limit.",
     "token_inactive": "That access token has been revoked.",
-    "password_renewal_due": "Your administrator password is over {days} days old and should be changed soon."
+    "password_renewal_due": "Your administrator password is over {days} days old and should be changed soon.",
+    "admin_tokens_header": "Recruiter tokens",
+    "admin_token_label_input": "Token label (e.g. recruiter's name or company)",
+    "admin_create_token_button": "Create token",
+    "admin_token_label_empty": "Please enter a label before creating a token.",
+    "admin_token_created": "Token created — share this with the recruiter. It will not be shown again.",
+    "admin_token_copy_label": "Access token"
   },
   "dataset_browser": {
     "select_label": "Demo dataset",
