@@ -54,3 +54,8 @@ htmlcov/
 
 # Visual-QC screenshots (qc_screenshots.py output; the harness itself is tracked)
 qc_shots/
+
+# Internal dev artefacts — not for public repo
+BRIEF.md
+HANDOFF.md
+PLAN.md

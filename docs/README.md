@@ -4,7 +4,7 @@
 
 Ask questions in plain English and let Data Compass chart the route through your dataset — no SQL required.
 
-**Live demo:** *(URL added after deploy — see [DEPLOY.md](DEPLOY.md))*
+**Live demo:** https://data-compass-<hash>.streamlit.app
 
 ---
 
