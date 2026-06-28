@@ -10,9 +10,46 @@ render_results(result) displays:
 """
 from __future__ import annotations
 
+import pandas as pd
 import streamlit as st
 
 from data_compass.i18n import t
+
+# Substrings that indicate a column holds a monetary value → £ prefix.
+_MONEY_WORDS = frozenset({
+    "price", "amount", "value", "cost", "revenue", "spend", "fee",
+    "salary", "wage", "income", "payment", "charge", "earning",
+    "turnover", "sale", "budget", "profit", "loss",
+})
+
+# Column names (exact) or suffixes that should NOT get a thousands separator
+# because they are date-parts or identifiers (e.g. year 1990 → "1,990" looks wrong).
+_DATE_PARTS = frozenset({"year", "month", "day", "hour", "quarter", "week"})
+_ID_SUFFIXES = ("_id", "_uid", "_code", "_key", "_ref", "_no")
+
+
+def _skip_fmt(col_lower: str) -> bool:
+    return col_lower in _DATE_PARTS or any(col_lower.endswith(s) for s in _ID_SUFFIXES)
+
+
+def _styled(df: pd.DataFrame) -> pd.io.formats.style.Styler:
+    """Return a Styler with locale-style number and currency formatting."""
+    fmt: dict[str, str] = {}
+    for col in df.columns:
+        if not pd.api.types.is_numeric_dtype(df[col]):
+            continue
+        col_lower = col.lower().replace(" ", "_")
+        if _skip_fmt(col_lower):
+            continue
+        if any(w in col_lower for w in _MONEY_WORDS):
+            fmt[col] = "£{:,.2f}"
+        elif pd.api.types.is_float_dtype(df[col]):
+            non_null = df[col].dropna()
+            all_whole = len(non_null) > 0 and (non_null % 1 == 0).all()
+            fmt[col] = "{:,.0f}" if all_whole else "{:,.2f}"
+        else:
+            fmt[col] = "{:,.0f}"
+    return df.style.format(fmt, na_rep="—") if fmt else df.style
 
 _CACHE_TIER_KEYS = {
     "exact": "query.cache_exact",
@@ -50,7 +87,7 @@ def render_results(result) -> None:
     if result.dataframe is None or result.dataframe.empty:
         st.info(t("query.no_rows"))
     else:
-        st.dataframe(result.dataframe, width="stretch", hide_index=True)
+        st.dataframe(_styled(result.dataframe), use_container_width=True, hide_index=True)
 
     if result.chart is not None:
         st.subheader(t("query.chart_header"))
