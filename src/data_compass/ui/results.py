@@ -14,6 +14,7 @@ import pandas as pd
 import streamlit as st
 
 from data_compass.i18n import t
+from data_compass.viz.autochart import pick_chart
 
 # Substrings that indicate a column holds a monetary value → £ prefix.
 _MONEY_WORDS = frozenset({
@@ -28,8 +29,36 @@ _DATE_PARTS = frozenset({"year", "month", "day", "hour", "quarter", "week"})
 _ID_SUFFIXES = ("_id", "_uid", "_code", "_key", "_ref", "_no")
 
 
+_MONTH_NAMES = {
+    1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr",
+    5: "May", 6: "Jun", 7: "Jul", 8: "Aug",
+    9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec",
+}
+
+
 def _skip_fmt(col_lower: str) -> bool:
     return col_lower in _DATE_PARTS or any(col_lower.endswith(s) for s in _ID_SUFFIXES)
+
+
+def _humanise(df: pd.DataFrame) -> pd.DataFrame:
+    """Replace integer month columns (1–12) with abbreviated names, sorted correctly.
+
+    Returns a new dataframe; the original is unchanged.
+    """
+    changed = False
+    out = df.copy()
+    for col in out.columns:
+        if col.lower() != "month":
+            continue
+        if not pd.api.types.is_integer_dtype(out[col]):
+            continue
+        vals = set(out[col].dropna().astype(int))
+        if not vals.issubset(_MONTH_NAMES.keys()):
+            continue
+        out = out.sort_values(col)
+        out[col] = out[col].map(_MONTH_NAMES)
+        changed = True
+    return out if changed else df
 
 
 def _styled(df: pd.DataFrame) -> pd.io.formats.style.Styler:
@@ -89,18 +118,19 @@ def render_results(result) -> None:
     if result.dataframe is None or result.dataframe.empty:
         st.info(t("query.no_rows"))
     else:
-        st.dataframe(_styled(result.dataframe), use_container_width=True, hide_index=True)
-
-    if result.chart is not None:
-        st.subheader(t("query.chart_header"))
-        st.plotly_chart(result.chart, width="stretch")
-        meta = getattr(result.chart.layout, "meta", None)
-        if isinstance(meta, dict) and meta.get("top_n"):
-            st.caption(
-                t("query.chart_top_n").format(
-                    shown=meta["top_n"], total=meta["total"], by=meta["by"]
+        df = _humanise(result.dataframe)
+        st.dataframe(_styled(df), use_container_width=True, hide_index=True)
+        chart = pick_chart(df)
+        if chart is not None:
+            st.subheader(t("query.chart_header"))
+            st.plotly_chart(chart, use_container_width=True)
+            meta = getattr(chart.layout, "meta", None)
+            if isinstance(meta, dict) and meta.get("top_n"):
+                st.caption(
+                    t("query.chart_top_n").format(
+                        shown=meta["top_n"], total=meta["total"], by=meta["by"]
+                    )
                 )
-            )
 
     if result.summary:
         st.subheader(t("query.summary_header"))
