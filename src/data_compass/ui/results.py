@@ -42,7 +42,9 @@ def _styled(df: pd.DataFrame) -> pd.io.formats.style.Styler:
         if _skip_fmt(col_lower):
             continue
         if any(w in col_lower for w in _MONEY_WORDS):
-            fmt[col] = "£{:,.2f}"
+            non_null = df[col].dropna()
+            all_whole = len(non_null) > 0 and (non_null % 1 == 0).all()
+            fmt[col] = "£{:,.0f}" if all_whole else "£{:,.2f}"
         elif pd.api.types.is_float_dtype(df[col]):
             non_null = df[col].dropna()
             all_whole = len(non_null) > 0 and (non_null % 1 == 0).all()

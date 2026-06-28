@@ -21,9 +21,14 @@ def test_price_column_gets_gbp_prefix():
     assert _rendered(df, "price").startswith("£")
 
 
-def test_price_formatted_with_thousands_separator():
+def test_price_whole_number_no_decimals():
     df = pd.DataFrame({"price": [315000.0]})
-    assert _rendered(df, "price") == "£315,000.00"
+    assert _rendered(df, "price") == "£315,000"
+
+
+def test_price_fractional_keeps_decimals():
+    df = pd.DataFrame({"price": [315000.5, 287500.0]})
+    assert _rendered(df, "price") == "£315,000.50"
 
 
 def test_integer_count_gets_thousands_separator():
