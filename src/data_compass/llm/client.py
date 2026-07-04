@@ -52,6 +52,7 @@ def generate_sql(
     response = client.messages.create(
         model=model,
         max_tokens=1024,
+        thinking={"type": "disabled"},
         system=[
             {
                 "type": "text",

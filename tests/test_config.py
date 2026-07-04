@@ -7,7 +7,7 @@ import importlib
 def test_model_rates_keys_present():
     from data_compass import config
     assert "claude-haiku-4-5" in config.MODEL_RATES
-    assert "claude-sonnet-4-6" in config.MODEL_RATES
+    assert "claude-sonnet-5" in config.MODEL_RATES
     assert "claude-opus-4-8" in config.MODEL_RATES
 
 

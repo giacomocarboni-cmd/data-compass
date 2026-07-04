@@ -14,7 +14,7 @@ from data_compass.config import CACHE_READ_MULTIPLIER, FX_USD_TO_GBP, MODEL_RATE
 _MODEL_LABELS: dict[str, str] = {
     "claude-haiku-4-5-20251001": "Haiku",
     "claude-haiku-4-5": "Haiku",
-    "claude-sonnet-4-6": "Sonnet",
+    "claude-sonnet-5": "Sonnet",
     "claude-opus-4-8": "Opus",
 }
 

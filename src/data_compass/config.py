@@ -41,7 +41,7 @@ _bootstrap_streamlit_secrets()
 # ---------------------------------------------------------------------------
 
 MODEL_HAIKU = "claude-haiku-4-5"
-MODEL_SONNET = "claude-sonnet-4-6"
+MODEL_SONNET = "claude-sonnet-5"
 MODEL_OPUS = "claude-opus-4-8"
 
 # ---------------------------------------------------------------------------

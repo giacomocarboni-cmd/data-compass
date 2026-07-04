@@ -106,6 +106,7 @@ def generate_and_store(
     response = client.messages.create(
         model=model,
         max_tokens=1024,
+        thinking={"type": "disabled"},
         system=[
             {"type": "text", "text": _SYSTEM, "cache_control": {"type": "ephemeral"}},
             {"type": "text", "text": schema_text, "cache_control": {"type": "ephemeral"}},

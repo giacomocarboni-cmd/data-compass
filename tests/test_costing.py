@@ -91,7 +91,7 @@ class TestBuildCostLine:
 
 class TestCostLineLabel:
     def test_label_includes_four_decimal_places(self):
-        cl = CostLine(models=["claude-sonnet-4-6"], cost_gbp=0.00123456)
+        cl = CostLine(models=["claude-sonnet-5"], cost_gbp=0.00123456)
         assert "0.0012" in cl.label
 
     def test_no_ai_label_shows_zero(self):

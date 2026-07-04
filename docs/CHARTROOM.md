@@ -426,7 +426,7 @@ environment variables (read at import, after `.env` is loaded).
 
 | Setting               | Env var                       | Default             | Meaning                                  |
 |-----------------------|-------------------------------|---------------------|------------------------------------------|
-| Generation model      | —                             | `claude-sonnet-4-6` | Tier 4 SQL author                        |
+| Generation model      | —                             | `claude-sonnet-5`   | Tier 4 SQL author                        |
 | Cheap model           | —                             | `claude-haiku-4-5`  | Tier 3 adjudication + summaries          |
 | Per-MTok rates        | —                             | see `MODEL_RATES`   | USD input/output prices                  |
 | Cache-read multiplier | —                             | `0.1`               | Cache-read tokens billed at 10% of input |
