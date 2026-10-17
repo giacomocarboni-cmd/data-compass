@@ -16,7 +16,7 @@ import sqlite3
 import streamlit as st
 
 from data_compass.auth import recruiter, store
-from data_compass.config import ADMIN_PASSWORD, ADMIN_USERNAME, AUTH_DB_PATH
+from data_compass.config import ADMIN_PASSWORD, ADMIN_PASSWORD_RESET, ADMIN_USERNAME, AUTH_DB_PATH
 
 
 def init_auth_db(conn: sqlite3.Connection) -> None:
@@ -25,6 +25,8 @@ def init_auth_db(conn: sqlite3.Connection) -> None:
     # store.connect already created the users table; seed_admin is idempotent
     # and refuses a blank password, so an unset ADMIN_PASSWORD seeds nothing.
     store.seed_admin(conn, ADMIN_USERNAME, ADMIN_PASSWORD)
+    if ADMIN_PASSWORD_RESET:
+        store.apply_reset_request(conn, ADMIN_USERNAME, ADMIN_PASSWORD_RESET)
 
 
 @st.cache_resource(show_spinner=False)

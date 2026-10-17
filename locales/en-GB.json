@@ -87,7 +87,17 @@
     "admin_create_token_button": "Create token",
     "admin_token_label_empty": "Please enter a label before creating a token.",
     "admin_token_created": "Token created — share this with the recruiter. It will not be shown again.",
-    "admin_token_copy_label": "Access token"
+    "admin_token_copy_label": "Access token",
+    "change_password_header": "Change password",
+    "current_password_label": "Current password",
+    "new_password_label": "New password",
+    "confirm_password_label": "Repeat new password",
+    "change_password_button": "Change password",
+    "password_current_wrong": "The current password is not right.",
+    "password_mismatch": "The two new passwords do not match.",
+    "password_too_short": "The new password must be at least {n} characters.",
+    "password_same": "The new password must be different from the current one.",
+    "password_changed": "Password changed."
   },
   "dataset_browser": {
     "select_label": "Demo dataset",
