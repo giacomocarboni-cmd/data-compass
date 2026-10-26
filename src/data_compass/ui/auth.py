@@ -85,9 +85,6 @@ def _render_admin_status(session) -> None:
         )
 
     st.divider()
-    _render_change_password(session)
-
-    st.divider()
     st.subheader(t("auth.admin_tokens_header"))
 
     # Show newly created token once, then clear it
@@ -101,17 +98,6 @@ def _render_admin_status(session) -> None:
 
     st.divider()
     st.button(t("auth.logout_button"), key="logout_btn", on_click=_cb_logout)
-
-
-def _render_change_password(session) -> None:
-    st.subheader(t("auth.change_password_header"))
-    msg = session.pop("_pw_msg", None)
-    if msg:
-        (st.success if msg[0] == "ok" else st.error)(msg[1])
-    st.text_input(t("auth.current_password_label"), type="password", key="_pw_current")
-    st.text_input(t("auth.new_password_label"), type="password", key="_pw_new")
-    st.text_input(t("auth.confirm_password_label"), type="password", key="_pw_confirm")
-    st.button(t("auth.change_password_button"), key="change_pw_btn", on_click=_cb_change_password)
 
 
 def _render_recruiter_status(session) -> None:
@@ -203,29 +189,6 @@ def _cb_admin_login() -> None:
     key_router.login_admin(session, user.username)
     session["_admin_renewal_due"] = policy.must_change_password(user)
     session[_SUCCESS_FLAG] = t("auth.login_success_admin")
-
-
-def _cb_change_password() -> None:
-    session = st.session_state
-    current = session.get("_pw_current") or ""
-    new = session.get("_pw_new") or ""
-    confirm = session.get("_pw_confirm") or ""
-    conn = auth_resource.get_auth_conn()
-    user = store.authenticate(conn, key_router.get_admin_username(session), current)
-    if user is None:
-        session["_pw_msg"] = ("err", t("auth.password_current_wrong"))
-    elif new != confirm:
-        session["_pw_msg"] = ("err", t("auth.password_mismatch"))
-    elif store.password_problem(new):
-        session["_pw_msg"] = ("err", t("auth.password_too_short").format(n=store.MIN_PASSWORD_LENGTH))
-    elif new == current:
-        session["_pw_msg"] = ("err", t("auth.password_same"))
-    else:
-        store.set_password(conn, user.id, new)
-        session["_admin_renewal_due"] = False
-        session["_pw_msg"] = ("ok", t("auth.password_changed"))
-    for k in ("_pw_current", "_pw_new", "_pw_confirm"):
-        session[k] = ""
 
 
 def _cb_create_token() -> None:

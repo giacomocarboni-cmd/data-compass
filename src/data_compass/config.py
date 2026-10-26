@@ -95,9 +95,6 @@ OWNER_API_KEY: str = os.getenv("ANTHROPIC_API_KEY", "").strip()
 # Admin account, seeded on first run from the environment.
 ADMIN_USERNAME: str = os.getenv("ADMIN_USERNAME", "admin").strip()
 ADMIN_PASSWORD: str = os.getenv("ADMIN_PASSWORD", "").strip()
-# Recovery: set this to force a new admin password on next start (applied once
-# per distinct value). Remove it afterwards.
-ADMIN_PASSWORD_RESET: str = os.getenv("ADMIN_PASSWORD_RESET", "").strip()
 
 # Admin passwords must be renewed after this many days (Step 6.2).
 ADMIN_PASSWORD_MAX_AGE_DAYS: int = int(os.getenv("ADMIN_PASSWORD_MAX_AGE_DAYS", "30"))

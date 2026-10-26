@@ -35,10 +35,6 @@ CREATE TABLE IF NOT EXISTS users (
     password_set_at TEXT NOT NULL,
     created_at      TEXT NOT NULL
 );
-CREATE TABLE IF NOT EXISTS meta (
-    key   TEXT PRIMARY KEY,
-    value TEXT NOT NULL
-);
 """
 
 # A single shared hasher (default Argon2id parameters are sensible for a
@@ -155,55 +151,6 @@ def seed_admin(conn: sqlite3.Connection, username: str, password: str) -> bool:
     if get_user(conn, username) is not None:
         return False
     create_user(conn, username, password, role="admin")
-    return True
-
-
-MIN_PASSWORD_LENGTH = 10
-
-
-def password_problem(password: str) -> str | None:
-    """Return a reason the password is unacceptable, or None if it is fine."""
-    if len(password) < MIN_PASSWORD_LENGTH:
-        return f"at least {MIN_PASSWORD_LENGTH} characters"
-    return None
-
-
-def reset_admin_password(conn: sqlite3.Connection, username: str, new_password: str) -> str:
-    """Set the admin's password, creating the account if it is missing.
-
-    Returns ``"created"`` or ``"reset"``. A blank or too-short password is refused
-    with ``ValueError``. Used by the recovery paths (secret and command line).
-    """
-    problem = password_problem(new_password)
-    if problem:
-        raise ValueError(f"Password must be {problem}.")
-    user = get_user(conn, username)
-    if user is None:
-        create_user(conn, username, new_password, role="admin")
-        return "created"
-    set_password(conn, user.id, new_password)
-    return "reset"
-
-
-def apply_reset_request(conn: sqlite3.Connection, username: str, requested: str) -> bool:
-    """Apply a one-off reset requested through configuration.
-
-    Resets only when ``requested`` differs from the value last applied (remembered
-    as a hash), so an app restart with the same secret does not keep overwriting
-    a password the admin has since changed. Returns True if a reset was applied.
-    """
-    if not requested or not requested.strip():
-        return False
-    marker = conn.execute("SELECT value FROM meta WHERE key = 'last_reset'").fetchone()
-    if marker is not None and verify_password(marker["value"], requested):
-        return False
-    reset_admin_password(conn, username, requested)
-    conn.execute(
-        "INSERT INTO meta (key, value) VALUES ('last_reset', ?) "
-        "ON CONFLICT(key) DO UPDATE SET value = excluded.value",
-        (hash_password(requested),),
-    )
-    conn.commit()
     return True
 
 

@@ -71,11 +71,6 @@ def login_recruiter(session: dict, token_id: int) -> None:
     session.pop(_USERNAME_KEY, None)
 
 
-def get_admin_username(session: dict) -> str:
-    """Return the logged-in admin's username ('' if not an admin session)."""
-    return session.get(_USERNAME_KEY, "")
-
-
 def get_recruiter_token_id(session: dict) -> int | None:
     """Return the logged-in recruiter's token id, or None."""
     return session.get(_RECRUITER_TOKEN_ID)
